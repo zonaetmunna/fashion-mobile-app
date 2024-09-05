@@ -1,70 +1,159 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Link } from 'expo-router';
+import React from 'react';
+import {
+	StyleSheet,
+	View,
+	Text,
+	Image,
+	ScrollView,
+	TextInput,
+	TouchableOpacity,
+	FlatList,
+	SafeAreaView,
+} from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+// Expanded placeholder data for fashion items
+const productData = [
+	{ id: '1', name: 'Summer Outfit', image: 'https://example.com/summer.jpg', price: '$25' },
+	{ id: '2', name: 'Winter Coat', image: 'https://example.com/winter.jpg', price: '$80' },
+	{ id: '3', name: 'Sports Gear', image: 'https://example.com/sports.jpg', price: '$45' },
+	{ id: '4', name: 'Evening Dress', image: 'https://example.com/evening.jpg', price: '$95' },
+];
+
+// Categories for the filter bar
+const categories = ['All', 'Men', 'Women', 'Kids', 'Sale'];
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+	return (
+		<SafeAreaView style={styles.container}>
+			<ScrollView>
+				<View style={styles.header}>
+					<Text style={styles.headerTitle}>Make Your Fashion Look Amazing</Text>
+				</View>
+				<View style={styles.searchSection}>
+					<TextInput style={styles.searchInput} placeholder='Search Something...' />
+					<TouchableOpacity style={styles.searchButton}>
+						<Text style={styles.searchButtonText}>🔍</Text>
+					</TouchableOpacity>
+				</View>
+				<ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterBar}>
+					{categories.map((category, index) => (
+						<TouchableOpacity key={index} style={styles.filterButton}>
+							<Text style={styles.filterText}>{category}</Text>
+						</TouchableOpacity>
+					))}
+				</ScrollView>
+
+				<TouchableOpacity style={styles.searchButton}>
+					<Link href='/products' style={styles.searchButton}>
+						<Text style={styles.searchButtonText}>All</Text>
+					</Link>
+				</TouchableOpacity>
+
+				<Text style={styles.sectionTitle}>Featured</Text>
+				<FlatList
+					data={productData}
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					keyExtractor={(item) => item.id}
+					renderItem={({ item }) => (
+						<View style={styles.productCard}>
+							<Image source={{ uri: item.image }} style={styles.productImage} />
+							<Text style={styles.productName}>{item.name}</Text>
+							<Text style={styles.productPrice}>{item.price}</Text>
+						</View>
+					)}
+				/>
+				<Text style={styles.sectionTitle}>New Arrival</Text>
+				<FlatList
+					data={productData}
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					keyExtractor={(item) => item.id}
+					renderItem={({ item }) => (
+						<View style={styles.productCard}>
+							<Image source={{ uri: item.image }} style={styles.productImage} />
+							<Text style={styles.productName}>{item.name}</Text>
+							<Text style={styles.productPrice}>{item.price}</Text>
+						</View>
+					)}
+				/>
+			</ScrollView>
+		</SafeAreaView>
+	);
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+	},
+	header: {
+		padding: 20,
+		backgroundColor: '#fff',
+		alignItems: 'center',
+	},
+	headerTitle: {
+		fontSize: 24,
+		fontWeight: 'bold',
+	},
+	searchSection: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		padding: 10,
+		borderBottomWidth: 1,
+		borderBottomColor: '#ccc',
+	},
+	searchInput: {
+		flex: 1,
+		borderColor: '#ccc',
+		borderWidth: 1,
+		padding: 10,
+		marginRight: 10,
+		borderRadius: 20,
+	},
+	searchButton: {
+		padding: 10,
+		backgroundColor: '#eee',
+		borderRadius: 20,
+	},
+	searchButtonText: {
+		fontSize: 24,
+	},
+	filterBar: {
+		marginVertical: 10,
+	},
+	filterButton: {
+		backgroundColor: '#f0f0f0',
+		padding: 10,
+		marginRight: 10,
+		borderRadius: 20,
+	},
+	filterText: {
+		fontSize: 16,
+	},
+	sectionTitle: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		marginLeft: 20,
+		marginTop: 20,
+	},
+	productCard: {
+		marginHorizontal: 10,
+		alignItems: 'center',
+		width: 150,
+	},
+	productImage: {
+		width: 150,
+		height: 150,
+		borderRadius: 75,
+	},
+	productName: {
+		fontSize: 16,
+		marginTop: 5,
+	},
+	productPrice: {
+		fontSize: 16,
+		color: '#333',
+	},
 });

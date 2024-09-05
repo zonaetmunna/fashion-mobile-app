@@ -6,32 +6,59 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+	const colorScheme = useColorScheme();
 
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
-  );
+	return (
+		<Tabs
+			screenOptions={{
+				tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+				headerShown: false,
+			}}>
+			<Tabs.Screen
+				name='index'
+				options={{
+					title: 'Home',
+					tabBarIcon: ({ color, focused }) => (
+						<TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name='explore'
+				options={{
+					title: 'Explore',
+					tabBarIcon: ({ color, focused }) => (
+						<TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name='cart'
+				options={{
+					title: 'Cart',
+					tabBarIcon: ({ color, focused }) => (
+						<TabBarIcon name={focused ? 'cart' : 'cart-outline'} color={color} />
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name='wishlist'
+				options={{
+					title: 'Wishlist',
+					tabBarIcon: ({ color, focused }) => (
+						<TabBarIcon name={focused ? 'heart' : 'heart-outline'} color={color} />
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name='profile'
+				options={{
+					title: 'Profile',
+					tabBarIcon: ({ color, focused }) => (
+						<TabBarIcon name={focused ? 'man' : 'man-outline'} color={color} />
+					),
+				}}
+			/>
+		</Tabs>
+	);
 }
