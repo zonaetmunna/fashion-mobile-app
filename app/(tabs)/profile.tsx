@@ -38,27 +38,35 @@ export default function ProfileScreen() {
 				</View>
 				<View style={styles.section}>
 					<Text style={styles.sectionTitle}>Account Settings</Text>
-					<ProfileOption title='Edit Profile' icon='person-circle-outline' />
-					<ProfileOption title='Saved Cards & Wallet' icon='card-outline' />
-					<ProfileOption title='Saved Addresses' icon='home-outline' />
-					<ProfileOption title='Select Language' icon='language-outline' />
-					<ProfileOption title='Notifications Settings' icon='notifications-outline' />
+					<ProfileOption title='Edit Profile' icon='person-circle-outline' href='/edit-profile' />
+					<ProfileOption title='Saved Cards & Wallet' icon='card-outline' href='/cards' />
+					<ProfileOption title='Saved Addresses' icon='home-outline' href='/addresses' />
+					<ProfileOption title='Select Language' icon='language-outline' href='/language' />
+					<ProfileOption
+						title='Notifications Settings'
+						icon='notifications-outline'
+						href='/notifications'
+					/>
 				</View>
 				<View style={styles.section}>
 					<Text style={styles.sectionTitle}>My Activity</Text>
-					<ProfileOption title='Reviews' icon='star-outline' />
-					<ProfileOption title='Questions & Answers' icon='chatbubble-ellipses-outline' />
+					<ProfileOption title='Reviews' icon='star-outline' href='/reviews' />
+					<ProfileOption
+						title='Questions & Answers'
+						icon='chatbubble-ellipses-outline'
+						href='/questions'
+					/>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
 	);
 }
 
-const ProfileOption = ({ title, icon }) => (
+const ProfileOption = ({ title, icon, href }) => (
 	<TouchableOpacity style={styles.profileOption}>
-		<Link href={`/edit-profile`} style={styles.profileOption}>
-			<Ionicons name={icon} size={24} style={styles.icon} />
-			<Text style={styles.optionTitle}>{title}</Text>
+		<Ionicons name={icon} size={24} style={styles.icon} />
+		<Text style={styles.optionTitle}>{title}</Text>
+		<Link href={href}>
 			<Ionicons name='chevron-forward' size={24} style={styles.chevron} />
 		</Link>
 	</TouchableOpacity>
@@ -124,20 +132,22 @@ const styles = StyleSheet.create({
 	profileOption: {
 		flexDirection: 'row',
 		alignItems: 'center',
+		justifyContent: 'space-between', // Aligns the chevron icon to the right
 		paddingVertical: 12,
 		paddingHorizontal: 20,
 		borderBottomWidth: 1,
 		borderBottomColor: '#eee',
 	},
-	icon: {
-		marginRight: 10,
-	},
 	optionTitle: {
-		flex: 1,
 		fontSize: 16,
 		color: 'black',
+		flex: 1, // Ensures the text takes up the remaining space
 	},
 	chevron: {
 		color: '#ccc',
+		alignSelf: 'flex-end', // This aligns the chevron horizontally to the end of the row
+	},
+	icon: {
+		marginRight: 10,
 	},
 });

@@ -1,89 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	StyleSheet,
 	View,
 	Text,
+	TextInput,
 	Image,
 	TouchableOpacity,
-	ScrollView,
-	FlatList,
 	SafeAreaView,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
-const cartData = [
-	{
-		id: 1,
-		name: 'Bluebell Hand Block Tiered',
-		price: 80,
-		originalPrice: 95,
-		quantity: 14,
-		imageUrl: 'https://example.com/product1.jpg',
-	},
-	{
-		id: 2,
-		name: 'Bluebell Hand Block Tiered',
-		price: 80,
-		originalPrice: 95,
-		quantity: 14,
-		imageUrl: 'https://example.com/product2.jpg',
-	},
-	{
-		id: 3,
-		name: 'Bluebell Hand Block Tiered',
-		price: 80,
-		originalPrice: 95,
-		quantity: 14,
-		imageUrl: 'https://example.com/product3.jpg',
-	},
-];
+import { useNavigation } from '@react-navigation/native'; // Assuming you are using React Navigation
 
 export default function EditProfileScreen() {
+	// State for profile information
+	const [name, setName] = useState('Roopa');
+	const [email, setEmail] = useState('roopa@example.com');
+	const [phone, setPhone] = useState('123-456-7890');
+
+	const navigation = useNavigation(); // Use navigation hook
+
 	return (
 		<SafeAreaView style={styles.safeArea}>
 			<View style={styles.container}>
-				<ScrollView style={styles.scrollView}>
-					<View style={styles.header}>
-						<Text style={styles.headerText}>My Cart</Text>
-						<Text style={styles.itemCount}>8 Items • Deliver to: London</Text>
-						<Ionicons name='ios-location-outline' size={20} style={styles.locationIcon} />
-						<Text style={styles.changeText}>Change</Text>
-					</View>
-					<Text style={styles.subtotal}>Subtotal $3,599</Text>
-					<Text style={styles.deliveryStatus}>Your Order Is Eligible For Free Delivery</Text>
+				{/* Back Button Section */}
 
-					<FlatList
-						data={cartData}
-						keyExtractor={(item) => item.id.toString()}
-						renderItem={({ item }) => (
-							<View style={styles.product}>
-								<Image source={{ uri: item.imageUrl }} style={styles.productImage} />
-								<View style={styles.productDetails}>
-									<Text style={styles.productName}>{item.name}</Text>
-									<Text style={styles.productPrice}>
-										${item.price} <Text style={styles.originalPrice}>${item.originalPrice}</Text>
-									</Text>
-									<Text style={styles.freeDelivery}>FREE Delivery</Text>
-									<View style={styles.quantityContainer}>
-										<TouchableOpacity style={styles.quantityButton}>
-											<Ionicons name='remove-outline' size={24} color='black' />
-										</TouchableOpacity>
-										<Text style={styles.quantity}>{item.quantity}</Text>
-										<TouchableOpacity style={styles.quantityButton}>
-											<Ionicons name='add-outline' size={24} color='black' />
-										</TouchableOpacity>
-										<TouchableOpacity style={styles.removeButton}>
-											<Text style={styles.removeText}>Remove</Text>
-										</TouchableOpacity>
-									</View>
-								</View>
-							</View>
-						)}
+				{/* Profile Section */}
+				<View style={styles.profileSection}>
+					<Image style={styles.avatar} source={{ uri: 'https://example.com/avatar.jpg' }} />
+					<TouchableOpacity style={styles.editPhotoButton}>
+						<Ionicons name='camera-outline' size={18} color='#fff' />
+						<Text style={styles.editPhotoText}>Change Photo</Text>
+					</TouchableOpacity>
+				</View>
+
+				{/* Form Section */}
+				<View style={styles.formSection}>
+					<Text style={styles.label}>Name</Text>
+					<TextInput style={styles.input} value={name} onChangeText={(text) => setName(text)} />
+
+					<Text style={styles.label}>Email</Text>
+					<TextInput
+						style={styles.input}
+						value={email}
+						onChangeText={(text) => setEmail(text)}
+						keyboardType='email-address'
 					/>
-				</ScrollView>
-				<TouchableOpacity style={styles.proceedButton}>
-					<Text style={styles.proceedButtonText}>Proceed to Buy (8 items)</Text>
-				</TouchableOpacity>
+
+					<Text style={styles.label}>Phone</Text>
+					<TextInput
+						style={styles.input}
+						value={phone}
+						onChangeText={(text) => setPhone(text)}
+						keyboardType='phone-pad'
+					/>
+				</View>
+
+				{/* Button Section */}
+				<View style={styles.buttonSection}>
+					<TouchableOpacity style={styles.saveButton}>
+						<Text style={styles.saveButtonText}>Save Changes</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity style={styles.cancelButton}>
+						<Text style={styles.cancelButtonText}>Cancel</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		</SafeAreaView>
 	);
@@ -95,101 +76,90 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
 	container: {
-		flex: 1,
+		paddingHorizontal: 20,
+		paddingTop: 30,
 	},
-	scrollView: {
-		flex: 1,
-	},
-	header: {
+	// Back Button Styles
+	backButton: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		padding: 15,
-		borderBottomWidth: 1,
-		borderBottomColor: '#ccc',
+		marginBottom: 20,
 	},
-	headerText: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		flex: 1,
-	},
-	itemCount: {
-		color: 'gray',
-	},
-	locationIcon: {
-		marginHorizontal: 5,
-	},
-	changeText: {
-		color: 'red',
-	},
-	subtotal: {
-		fontSize: 18,
-		fontWeight: 'bold',
-		padding: 15,
-	},
-	deliveryStatus: {
+	backButtonText: {
 		fontSize: 16,
-		color: 'green',
-		paddingLeft: 15,
+		color: '#333',
+		marginLeft: 5,
 	},
-	product: {
-		flexDirection: 'row',
-		padding: 15,
-		borderBottomWidth: 1,
-		borderBottomColor: '#eee',
+
+	profileSection: {
+		alignItems: 'center',
+		marginBottom: 30,
 	},
-	productImage: {
+	avatar: {
 		width: 100,
 		height: 100,
-		marginRight: 10,
+		borderRadius: 50,
+		marginBottom: 10,
 	},
-	productDetails: {
+	editPhotoButton: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		backgroundColor: '#007bff',
+		paddingHorizontal: 15,
+		paddingVertical: 8,
+		borderRadius: 20,
+	},
+	editPhotoText: {
+		color: '#fff',
+		fontSize: 14,
+		marginLeft: 5,
+	},
+	formSection: {
+		marginBottom: 40,
+	},
+	label: {
+		fontSize: 14,
+		color: '#333',
+		marginBottom: 5,
+	},
+	input: {
+		borderWidth: 1,
+		borderColor: '#ddd',
+		borderRadius: 10,
+		paddingHorizontal: 15,
+		paddingVertical: 10,
+		fontSize: 16,
+		marginBottom: 20,
+	},
+	buttonSection: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
+	saveButton: {
+		backgroundColor: '#28a745',
+		paddingVertical: 12,
+		paddingHorizontal: 20,
+		borderRadius: 10,
 		flex: 1,
-		justifyContent: 'space-around',
+		marginRight: 10,
+		alignItems: 'center',
 	},
-	productName: {
+	saveButtonText: {
+		color: '#fff',
 		fontSize: 16,
 		fontWeight: 'bold',
 	},
-	productPrice: {
-		fontSize: 16,
-		color: 'black',
-	},
-	originalPrice: {
-		textDecorationLine: 'line-through',
-		color: 'gray',
-	},
-	freeDelivery: {
-		color: 'green',
-	},
-	quantityContainer: {
-		flexDirection: 'row',
-		alignItems: 'center',
-	},
-	quantityButton: {
-		padding: 10,
-	},
-	quantity: {
-		fontSize: 16,
-		width: 40,
-		textAlign: 'center',
-	},
-	removeButton: {
-		marginLeft: 10,
-	},
-	removeText: {
-		color: 'red',
-	},
-	proceedButton: {
-		backgroundColor: 'black',
-		alignItems: 'center',
-		padding: 15,
-		marginTop: 10,
-		marginVertical: 10,
-		marginHorizontal: 15,
+	cancelButton: {
+		backgroundColor: '#dc3545',
+		paddingVertical: 12,
+		paddingHorizontal: 20,
 		borderRadius: 10,
+		flex: 1,
+		alignItems: 'center',
 	},
-	proceedButtonText: {
-		color: 'white',
-		fontSize: 18,
+	cancelButtonText: {
+		color: '#fff',
+		fontSize: 16,
+		fontWeight: 'bold',
 	},
 });
