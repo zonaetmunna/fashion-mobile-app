@@ -59,8 +59,21 @@ export default function RootLayout() {
 				<Stack.Screen name='(onboarding)' options={{ headerShown: false }} />
 				<Stack.Screen name='login' options={{ headerShown: false }} />
 				<Stack.Screen name='signup' options={{ headerShown: false }} />
-				<Stack.Screen name='forgot-password' options={{ headerShown: false }} />
-				<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+				<Stack.Screen name='forgotPassword' options={{ headerShown: false }} />
+				<Stack.Screen name='forgot-verification-code' options={{ headerShown: false }} />
+				<Stack.Screen name='new-password' options={{ headerShown: false }} />
+				<Stack.Screen name='(drawer)' options={{ headerShown: false }} />
+				{/* for dynmic route */}
+				<Stack.Screen name='products-details/[id]' options={{ headerShown: false }} />
+				<Stack.Screen name='checkout' options={{ headerShown: false }} />
+				<Stack.Screen name='delivery-address' options={{ headerShown: false }} />
+				<Stack.Screen name='payment' options={{ headerShown: false }} />
+				<Stack.Screen name='add-card' options={{ headerShown: false }} />
+				<Stack.Screen name='add-delivery-address' options={{ headerShown: false }} />
+				<Stack.Screen name='my-orders' options={{ headerShown: false }} />
+				<Stack.Screen name='track-order/[id]' options={{ headerShown: false }} />
+				<Stack.Screen name='write-review/[id]' options={{ headerShown: false }} />
+				<Stack.Screen name='reviews' options={{ headerShown: false }} />
 				<Stack.Screen name='+not-found' />
 			</Stack>
 		</ThemeProvider>

@@ -10,6 +10,7 @@ import {
 	SafeAreaView,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { router } from 'expo-router';
 
 const cartData = [
 	{
@@ -81,7 +82,7 @@ export default function CartScreen() {
 						)}
 					/>
 				</ScrollView>
-				<TouchableOpacity style={styles.proceedButton}>
+				<TouchableOpacity style={styles.proceedButton} onPress={() => router.push('/checkout')}>
 					<Text style={styles.proceedButtonText}>Proceed to Buy (8 items)</Text>
 				</TouchableOpacity>
 			</View>
