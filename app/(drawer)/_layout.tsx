@@ -31,7 +31,7 @@ const CustomDrawerContent = (props: any) => {
 				icon={({ size }) => <Ionicons name='home-outline' size={size} color='#E91E63' />}
 				label='Home'
 				labelStyle={styles.navItemLabel}
-				onPress={() => router.push('/(drawer)/(tabs)')}
+				onPress={() => router.push('/(tabs)')}
 			/>
 
 			<DrawerItem
@@ -52,7 +52,7 @@ const CustomDrawerContent = (props: any) => {
 				icon={({ size }) => <Feather name='heart' size={size} color='#E91E63' />}
 				label='Wishlist'
 				labelStyle={styles.navItemLabel}
-				onPress={() => router.push('/(drawer)/(tabs)/wishlist')}
+				onPress={() => router.push('/wishlist')}
 			/>
 
 			<DrawerItem
@@ -66,14 +66,7 @@ const CustomDrawerContent = (props: any) => {
 				icon={({ size }) => <Ionicons name='person-outline' size={size} color='#E91E63' />}
 				label='Profile'
 				labelStyle={styles.navItemLabel}
-				onPress={() => router.push('/(drawer)/(tabs)/profile')}
-			/>
-			{/* notification */}
-			<DrawerItem
-				icon={({ size }) => <Ionicons name='notifications-outline' size={size} color='#E91E63' />}
-				label='Profile'
-				labelStyle={styles.navItemLabel}
-				onPress={() => router.push('/(drawer)/(tabs)/profile')}
+				onPress={() => router.push('/profile')}
 			/>
 
 			{/* <DrawerItem
@@ -100,11 +93,10 @@ export default function DrawerLayout() {
 			drawerContent={(props) => <CustomDrawerContent {...props} />}
 			screenOptions={{ headerShown: false }}>
 			{/* Screens */}
-			<Drawer.Screen name='Home' options={{ headerShown: true }} />
-			<Drawer.Screen name='Products' options={{ headerShown: true }} />
-			<Drawer.Screen name='Wishlist' options={{ headerShown: true }} />
-			<Drawer.Screen name='Profile' options={{ headerShown: true }} />
-			<Drawer.Screen name='Notification' options={{ headerShown: true }} />
+			<Drawer.Screen name='(tabs)' options={{ headerShown: false }} />
+			<Drawer.Screen name='products' options={{ headerShown: false }} />
+			{/* <Drawer.Screen name='wishlist' options={{ headerShown: true }} /> */}
+			{/* <Drawer.Screen name='profile' options={{ headerShown: true }} /> */}
 		</Drawer>
 	);
 }

@@ -6,6 +6,7 @@ import Header from '@/components/features/Header';
 import SearchBar from '@/components/features/SearchBar';
 import ImageSlider from '@/components/features/ImageSlider';
 import ProductList from '@/components/features/ProductList';
+import { Container } from '@/components/container';
 
 // Placeholder data for fashion items
 const productData = [
@@ -13,7 +14,7 @@ const productData = [
 		id: '1',
 		name: 'Summer Outfit',
 		category: 'Women',
-		image: 'https://i.ibb.co.com/mDTLbzM/women-fasion-category.jpg',
+		image: 'https://source.unsplash.com/featured/?fashion,women',
 		price: '$25',
 		featured: true,
 		newArrivals: false,
@@ -96,11 +97,10 @@ export default function HomeScreen() {
 	);
 
 	return (
-		<SafeAreaView style={styles.container}>
-			{/* Fixed Header */}
+		<Container>
 			<Header />
 
-			{/* Scrollable Content */}
+			{/* Scrollable body */}
 			<ScrollView contentContainerStyle={styles.scrollContent}>
 				<SearchBar />
 				<ImageSlider images={fashionImages} />
@@ -123,7 +123,7 @@ export default function HomeScreen() {
 				/>
 				<ProductList products={filteredNewArrivalProducts} />
 			</ScrollView>
-		</SafeAreaView>
+		</Container>
 	);
 }
 
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#fff',
+		paddingTop: 20,
 	},
 	scrollContent: {
 		paddingHorizontal: 20,

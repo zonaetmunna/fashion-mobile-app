@@ -1,51 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRouter } from 'expo-router';
-
-// Mock Data for Reviews
-const reviewsData = [
-	{
-		id: '1',
-		reviewerName: 'John Doe',
-		rating: 5,
-		reviewTitle: 'Great product!',
-		reviewDescription:
-			'I absolutely loved this dress. The quality is amazing, and it fits perfectly.',
-		recommend: true,
-		date: '1st Jan 2024',
-		image: 'https://randomuser.me/api/portraits/men/1.jpg',
-	},
-	{
-		id: '2',
-		reviewerName: 'Jane Smith',
-		rating: 4,
-		reviewTitle: 'Good but pricey',
-		reviewDescription:
-			'The dress is beautiful, but I found it a bit too expensive for the quality.',
-		recommend: false,
-		date: '5th Jan 2024',
-		image: 'https://randomuser.me/api/portraits/women/2.jpg',
-	},
-	{
-		id: '3',
-		reviewerName: 'Emily Johnson',
-		rating: 4,
-		reviewTitle: 'Loved the color!',
-		reviewDescription:
-			'The color of the dress is exactly what I was looking for. Great for casual wear!',
-		recommend: true,
-		date: '10th Jan 2024',
-		image: 'https://randomuser.me/api/portraits/women/3.jpg',
-	},
-	// Add more review data here
-];
+import { Container } from '@/components/container';
+import { reviewsData } from '@/data/reviews';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { useState } from 'react';
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 
 export default function ReviewsScreen() {
-	const router = useRouter();
 	const [reviews] = useState(reviewsData);
 
-	const renderReviewItem = ({ item }) => (
+	const renderReviewItem = ({ item }: { item: any }) => (
 		<View style={styles.reviewItem}>
 			{/* Reviewer Profile */}
 			<View style={styles.reviewerInfo}>
@@ -70,7 +33,11 @@ export default function ReviewsScreen() {
 			<View style={styles.reviewContent}>
 				<Text style={styles.reviewTitle}>{item.reviewTitle}</Text>
 				<Text style={styles.reviewDescription}>{item.reviewDescription}</Text>
-				<Text style={styles.recommendation}>
+				<Text
+					style={[
+						styles.recommendation,
+						{ color: item.recommend ? '#27ae60' : '#e74c3c' }, // Dynamic style based on recommendation
+					]}>
 					{item.recommend ? 'Recommended' : 'Not Recommended'}
 				</Text>
 			</View>
@@ -78,40 +45,40 @@ export default function ReviewsScreen() {
 	);
 
 	return (
-		<View style={styles.container}>
-			{/* Header */}
-			<View style={styles.header}>
-				<Ionicons
-					name='chevron-back-outline'
-					size={28}
-					color='#333'
-					onPress={() => router.back()}
-				/>
-				<Text style={styles.headerTitle}>Reviews</Text>
-			</View>
+		<Container>
+			<View style={styles.container}>
+				{/* Header */}
+				<View style={styles.header}>
+					<Ionicons
+						name='chevron-back-outline'
+						size={28}
+						color='#333'
+						onPress={() => router.back()}
+					/>
+					<Text style={styles.headerTitle}>Reviews</Text>
+				</View>
 
-			{/* Reviews List */}
-			<FlatList
-				data={reviews}
-				keyExtractor={(item) => item.id}
-				renderItem={renderReviewItem}
-				contentContainerStyle={styles.reviewList}
-			/>
-		</View>
+				{/* Reviews List */}
+				<FlatList
+					data={reviews}
+					keyExtractor={(item) => item.id}
+					renderItem={renderReviewItem}
+					contentContainerStyle={styles.reviewList}
+				/>
+			</View>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 	},
 	header: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		padding: 20,
-		borderBottomWidth: 1,
-		borderBottomColor: '#ddd',
 	},
 	headerTitle: {
 		fontSize: 20,
@@ -173,6 +140,5 @@ const styles = StyleSheet.create({
 	recommendation: {
 		fontSize: 14,
 		fontWeight: 'bold',
-		color: (item) => (item.recommend ? '#27ae60' : '#e74c3c'),
 	},
 });

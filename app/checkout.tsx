@@ -2,99 +2,102 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
+import { Container } from '@/components/container';
 
 export default function CheckoutScreen() {
 	const [notes, setNotes] = useState('');
 
 	return (
-		<View style={styles.container}>
-			<ScrollView contentContainerStyle={styles.scrollContent}>
-				{/* Header */}
-				<View style={styles.header}>
-					<TouchableOpacity onPress={() => router.back()}>
-						<Ionicons name='chevron-back-outline' size={28} color='#333' />
+		<Container>
+			<View style={styles.container}>
+				<ScrollView contentContainerStyle={styles.scrollContent}>
+					{/* Header */}
+					<View style={styles.header}>
+						<TouchableOpacity onPress={() => router.back()}>
+							<Ionicons name='chevron-back-outline' size={28} color='#333' />
+						</TouchableOpacity>
+						<Text style={styles.headerTitle}>Checkout</Text>
+					</View>
+
+					{/* Delivery Address */}
+					<TouchableOpacity style={styles.section} onPress={() => router.push('/delivery-address')}>
+						<View style={styles.sectionContent}>
+							<Ionicons name='location-outline' size={24} color='#333' />
+							<View style={styles.sectionTextWrapper}>
+								<Text style={styles.sectionTitle}>Delivery Address</Text>
+								<Text style={styles.sectionSubtitle}>123 Main Street, Anytown, USA 12345</Text>
+							</View>
+						</View>
+						<Ionicons name='chevron-forward-outline' size={24} color='#333' />
 					</TouchableOpacity>
-					<Text style={styles.headerTitle}>Checkout</Text>
-				</View>
 
-				{/* Delivery Address */}
-				<TouchableOpacity style={styles.section} onPress={() => router.push('/delivery-address')}>
-					<View style={styles.sectionContent}>
-						<Ionicons name='location-outline' size={24} color='#333' />
-						<View style={styles.sectionTextWrapper}>
-							<Text style={styles.sectionTitle}>Delivery Address</Text>
-							<Text style={styles.sectionSubtitle}>123 Main Street, Anytown, USA 12345</Text>
+					{/* Payment */}
+					<TouchableOpacity style={styles.section} onPress={() => router.push('/payment')}>
+						<View style={styles.sectionContent}>
+							<Ionicons name='card-outline' size={24} color='#333' />
+							<View style={styles.sectionTextWrapper}>
+								<Text style={styles.sectionTitle}>Payment</Text>
+								<Text style={styles.sectionSubtitle}>XXXX XXXX XXXX 3456</Text>
+							</View>
+						</View>
+						<Ionicons name='chevron-forward-outline' size={24} color='#333' />
+					</TouchableOpacity>
+
+					{/* Additional Notes */}
+					<View style={styles.notesSection}>
+						<Text style={styles.notesLabel}>Additional Notes:</Text>
+						<TextInput
+							placeholder='Write Here'
+							placeholderTextColor='#aaa'
+							style={styles.notesInput}
+							value={notes}
+							onChangeText={setNotes}
+							multiline
+						/>
+					</View>
+
+					{/* Order Summary */}
+					<View style={styles.summarySection}>
+						<View style={styles.summaryRow}>
+							<Text style={styles.summaryItem}>Bluebell Hand Block Tiered</Text>
+							<Text style={styles.summaryPrice}>2 X $2000.00</Text>
+						</View>
+						<View style={styles.summaryRow}>
+							<Text style={styles.summaryItem}>Men Black Grey Allover Printed</Text>
+							<Text style={styles.summaryPrice}>2 X $1699.00</Text>
+						</View>
+						<View style={styles.summaryRow}>
+							<Text style={styles.summaryItem}>Discount</Text>
+							<Text style={styles.discountPrice}>-$100.00</Text>
+						</View>
+						<View style={styles.summaryRow}>
+							<Text style={styles.summaryItem}>Shipping</Text>
+							<Text style={styles.shippingText}>FREE Delivery</Text>
 						</View>
 					</View>
-					<Ionicons name='chevron-forward-outline' size={24} color='#333' />
-				</TouchableOpacity>
 
-				{/* Payment */}
-				<TouchableOpacity style={styles.section} onPress={() => router.push('/payment')}>
-					<View style={styles.sectionContent}>
-						<Ionicons name='card-outline' size={24} color='#333' />
-						<View style={styles.sectionTextWrapper}>
-							<Text style={styles.sectionTitle}>Payment</Text>
-							<Text style={styles.sectionSubtitle}>XXXX XXXX XXXX 3456</Text>
-						</View>
+					{/* Total Amount */}
+					<View style={styles.totalContainer}>
+						<Text style={styles.totalLabel}>My Order</Text>
+						<Text style={styles.totalAmount}>$3,599.00</Text>
 					</View>
-					<Ionicons name='chevron-forward-outline' size={24} color='#333' />
-				</TouchableOpacity>
+				</ScrollView>
 
-				{/* Additional Notes */}
-				<View style={styles.notesSection}>
-					<Text style={styles.notesLabel}>Additional Notes:</Text>
-					<TextInput
-						placeholder='Write Here'
-						placeholderTextColor='#aaa'
-						style={styles.notesInput}
-						value={notes}
-						onChangeText={setNotes}
-						multiline
-					/>
+				{/* Submit Order Button */}
+				<View style={styles.fixedFooter}>
+					<TouchableOpacity style={styles.submitButton} onPress={() => router.push('/my-orders')}>
+						<Text style={styles.submitButtonText}>Submit Order</Text>
+					</TouchableOpacity>
 				</View>
-
-				{/* Order Summary */}
-				<View style={styles.summarySection}>
-					<View style={styles.summaryRow}>
-						<Text style={styles.summaryItem}>Bluebell Hand Block Tiered</Text>
-						<Text style={styles.summaryPrice}>2 X $2000.00</Text>
-					</View>
-					<View style={styles.summaryRow}>
-						<Text style={styles.summaryItem}>Men Black Grey Allover Printed</Text>
-						<Text style={styles.summaryPrice}>2 X $1699.00</Text>
-					</View>
-					<View style={styles.summaryRow}>
-						<Text style={styles.summaryItem}>Discount</Text>
-						<Text style={styles.discountPrice}>-$100.00</Text>
-					</View>
-					<View style={styles.summaryRow}>
-						<Text style={styles.summaryItem}>Shipping</Text>
-						<Text style={styles.shippingText}>FREE Delivery</Text>
-					</View>
-				</View>
-
-				{/* Total Amount */}
-				<View style={styles.totalContainer}>
-					<Text style={styles.totalLabel}>My Order</Text>
-					<Text style={styles.totalAmount}>$3,599.00</Text>
-				</View>
-			</ScrollView>
-
-			{/* Submit Order Button */}
-			<View style={styles.fixedFooter}>
-				<TouchableOpacity style={styles.submitButton}>
-					<Text style={styles.submitButtonText}>Submit Order</Text>
-				</TouchableOpacity>
 			</View>
-		</View>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 	},
 	scrollContent: {
 		paddingHorizontal: 20,

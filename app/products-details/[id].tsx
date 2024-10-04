@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Container } from '@/components/container';
 
 const mockProduct = {
 	id: '1',
@@ -31,84 +32,86 @@ export default function ProductDetails() {
 	};
 
 	return (
-		<View style={styles.container}>
-			<ScrollView contentContainerStyle={styles.scrollContent}>
-				{/* Header */}
-				<View style={styles.header}>
-					<TouchableOpacity onPress={() => router.back()}>
-						<Ionicons name='chevron-back-outline' size={28} color='#333' />
+		<Container>
+			<View style={styles.container}>
+				<ScrollView contentContainerStyle={styles.scrollContent}>
+					{/* Header */}
+					<View style={styles.header}>
+						<TouchableOpacity onPress={() => router.back()}>
+							<Ionicons name='chevron-back-outline' size={28} color='#333' />
+						</TouchableOpacity>
+						<Text style={styles.headerTitle}>Product Details</Text>
+						<Ionicons name='cart-outline' size={28} color='#333' />
+						<View style={styles.cartBadge}>
+							<Text style={styles.cartBadgeText}>14</Text>
+						</View>
+					</View>
+
+					{/* Product Image Section */}
+					<View style={styles.productImageSection}>
+						{/* Thumbnails */}
+						<View style={styles.thumbnailContainer}>
+							{mockProduct.images.map((image, index) => (
+								<TouchableOpacity key={index} onPress={() => setSelectedImage(image)}>
+									<Image source={{ uri: image }} style={styles.thumbnail} />
+								</TouchableOpacity>
+							))}
+						</View>
+
+						{/* Main Image */}
+						<Image source={{ uri: selectedImage }} style={styles.mainImage} />
+					</View>
+
+					{/* Product Information */}
+					<View style={styles.productDetails}>
+						<Text style={styles.brandName}>{mockProduct.brand}</Text>
+						<View style={styles.productTitleContainer}>
+							<Text style={styles.productName}>{mockProduct.name}</Text>
+							<View style={styles.ratingContainer}>
+								<Ionicons name='star' size={16} color='#f1c40f' />
+								<Text style={styles.rating}>{mockProduct.rating}</Text>
+								<Text style={styles.reviews}>({mockProduct.reviews})</Text>
+							</View>
+						</View>
+
+						{/* Price */}
+						<View style={styles.priceContainer}>
+							<Text style={styles.price}>${mockProduct.price}</Text>
+							<Text style={styles.originalPrice}>${mockProduct.originalPrice}</Text>
+						</View>
+
+						{/* Quantity Selector */}
+						<View style={styles.quantityContainer}>
+							<Text style={styles.quantityLabel}>Quantity:</Text>
+							<View style={styles.quantitySelector}>
+								<TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
+									<Ionicons name='remove-outline' size={16} color='#333' />
+								</TouchableOpacity>
+								<Text style={styles.quantityValue}>{quantity}</Text>
+								<TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
+									<Ionicons name='add-outline' size={16} color='#333' />
+								</TouchableOpacity>
+							</View>
+						</View>
+					</View>
+				</ScrollView>
+
+				{/* Add To Cart Button */}
+				<View style={styles.fixedFooter}>
+					<TouchableOpacity style={styles.addToCartButton}>
+						<Ionicons name='cart-outline' size={20} color='#fff' />
+						<Text style={styles.addToCartText}>Add To Cart</Text>
 					</TouchableOpacity>
-					<Text style={styles.headerTitle}>Product Details</Text>
-					<Ionicons name='cart-outline' size={28} color='#333' />
-					<View style={styles.cartBadge}>
-						<Text style={styles.cartBadgeText}>14</Text>
-					</View>
 				</View>
-
-				{/* Product Image Section */}
-				<View style={styles.productImageSection}>
-					{/* Thumbnails */}
-					<View style={styles.thumbnailContainer}>
-						{mockProduct.images.map((image, index) => (
-							<TouchableOpacity key={index} onPress={() => setSelectedImage(image)}>
-								<Image source={{ uri: image }} style={styles.thumbnail} />
-							</TouchableOpacity>
-						))}
-					</View>
-
-					{/* Main Image */}
-					<Image source={{ uri: selectedImage }} style={styles.mainImage} />
-				</View>
-
-				{/* Product Information */}
-				<View style={styles.productDetails}>
-					<Text style={styles.brandName}>{mockProduct.brand}</Text>
-					<View style={styles.productTitleContainer}>
-						<Text style={styles.productName}>{mockProduct.name}</Text>
-						<View style={styles.ratingContainer}>
-							<Ionicons name='star' size={16} color='#f1c40f' />
-							<Text style={styles.rating}>{mockProduct.rating}</Text>
-							<Text style={styles.reviews}>({mockProduct.reviews})</Text>
-						</View>
-					</View>
-
-					{/* Price */}
-					<View style={styles.priceContainer}>
-						<Text style={styles.price}>${mockProduct.price}</Text>
-						<Text style={styles.originalPrice}>${mockProduct.originalPrice}</Text>
-					</View>
-
-					{/* Quantity Selector */}
-					<View style={styles.quantityContainer}>
-						<Text style={styles.quantityLabel}>Quantity:</Text>
-						<View style={styles.quantitySelector}>
-							<TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
-								<Ionicons name='remove-outline' size={16} color='#333' />
-							</TouchableOpacity>
-							<Text style={styles.quantityValue}>{quantity}</Text>
-							<TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
-								<Ionicons name='add-outline' size={16} color='#333' />
-							</TouchableOpacity>
-						</View>
-					</View>
-				</View>
-			</ScrollView>
-
-			{/* Add To Cart Button */}
-			<View style={styles.fixedFooter}>
-				<TouchableOpacity style={styles.addToCartButton}>
-					<Ionicons name='cart-outline' size={20} color='#fff' />
-					<Text style={styles.addToCartText}>Add To Cart</Text>
-				</TouchableOpacity>
 			</View>
-		</View>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 	},
 	scrollContent: {
 		padding: 20,
@@ -138,25 +141,29 @@ const styles = StyleSheet.create({
 	},
 	productImageSection: {
 		flexDirection: 'row',
+		gap: 5,
+
+		marginTop: 20,
 	},
 	thumbnailContainer: {
+		width: '20%',
 		marginRight: 10,
 	},
 	thumbnail: {
-		width: 50,
-		height: 50,
+		width: '100%',
+		height: 60,
 		borderRadius: 5,
 		marginBottom: 10,
 		borderColor: '#ddd',
 		borderWidth: 1,
 	},
 	mainImage: {
-		width: 250,
+		width: '70%',
 		height: 350,
 		borderRadius: 10,
 	},
 	productDetails: {
-		marginTop: 20,
+		marginTop: 40,
 	},
 	brandName: {
 		fontSize: 14,
@@ -164,9 +171,9 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	productTitleContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
+		flexDirection: 'column',
+		justifyContent: 'flex-start',
+		alignItems: 'flex-start',
 	},
 	productName: {
 		fontSize: 20,
@@ -236,7 +243,7 @@ const styles = StyleSheet.create({
 		left: 0,
 		right: 0,
 		padding: 20,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 		borderTopWidth: 1,
 		borderTopColor: '#eee',
 	},

@@ -9,6 +9,7 @@ import {
 	ScrollView,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Container } from '@/components/container';
 
 const wishlistData = [
 	{
@@ -16,7 +17,7 @@ const wishlistData = [
 		name: 'Bluebell Hand Block Tiered Dress',
 		price: 80,
 		originalPrice: 95,
-		imageUrl: 'https://example.com/dress1.jpg',
+		imageUrl: 'https://randomuser.me/api/portraits/women/1.jpg',
 		reviews: 2000,
 	},
 	{
@@ -24,7 +25,7 @@ const wishlistData = [
 		name: 'Bluebell Hand Block Tiered Dress',
 		price: 80,
 		originalPrice: 95,
-		imageUrl: 'https://example.com/dress2.jpg',
+		imageUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
 		reviews: 2000,
 	},
 	{
@@ -32,7 +33,7 @@ const wishlistData = [
 		name: 'Bluebell Hand Block Tiered Dress',
 		price: 80,
 		originalPrice: 95,
-		imageUrl: 'https://example.com/dress3.jpg',
+		imageUrl: 'https://randomuser.me/api/portraits/women/1.jpg',
 		reviews: 2000,
 	},
 	{
@@ -40,7 +41,7 @@ const wishlistData = [
 		name: 'Bluebell Hand Block Tiered Dress',
 		price: 80,
 		originalPrice: 95,
-		imageUrl: 'https://example.com/dress4.jpg',
+		imageUrl: 'https://randomuser.me/api/portraits/women/7.jpg',
 		reviews: 2000,
 	},
 ];
@@ -49,48 +50,50 @@ const categories = ['All', 'Child', 'Man', 'Woman', 'Dress', 'Underwear'];
 
 export default function WishlistScreen() {
 	return (
-		<View style={styles.container}>
-			<Text style={styles.pageTitle}>Wishlist</Text>
-			<ScrollView
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				contentContainerStyle={styles.filterContainer}>
-				{categories.map((category, index) => (
-					<TouchableOpacity key={index} style={styles.filterButton}>
-						<Text style={styles.filterText}>{category}</Text>
-					</TouchableOpacity>
-				))}
-			</ScrollView>
-			<FlatList
-				data={wishlistData}
-				numColumns={2}
-				keyExtractor={(item) => item.id.toString()}
-				renderItem={({ item }) => (
-					<View style={styles.card}>
-						<TouchableOpacity style={styles.closeButton}>
-							<Ionicons name='close-circle' size={24} color='red' />
+		<Container>
+			<View style={styles.container}>
+				<Text style={styles.pageTitle}>Wishlist</Text>
+				<ScrollView
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					contentContainerStyle={styles.filterContainer}>
+					{categories.map((category, index) => (
+						<TouchableOpacity key={index} style={styles.filterButton}>
+							<Text style={styles.filterText}>{category}</Text>
 						</TouchableOpacity>
-						<Image source={{ uri: item.imageUrl }} style={styles.image} />
-						<Text style={styles.name}>{item.name}</Text>
-						<Text style={styles.price}>
-							${item.price} <Text style={styles.originalPrice}>${item.originalPrice}</Text>
-						</Text>
-						<Text style={styles.reviews}>{item.reviews} Review</Text>
-						<TouchableOpacity style={styles.button}>
-							<Text style={styles.buttonText}>Add To Cart</Text>
-						</TouchableOpacity>
-					</View>
-				)}
-				contentContainerStyle={styles.listContainer}
-			/>
-		</View>
+					))}
+				</ScrollView>
+				<FlatList
+					data={wishlistData}
+					numColumns={2}
+					keyExtractor={(item) => item.id.toString()}
+					renderItem={({ item }) => (
+						<View style={styles.card}>
+							<TouchableOpacity style={styles.closeButton}>
+								<Ionicons name='close-circle' size={24} color='red' />
+							</TouchableOpacity>
+							<Image source={{ uri: item.imageUrl }} style={styles.image} />
+							<Text style={styles.name}>{item.name}</Text>
+							<Text style={styles.price}>
+								${item.price} <Text style={styles.originalPrice}>${item.originalPrice}</Text>
+							</Text>
+							<Text style={styles.reviews}>{item.reviews} Review</Text>
+							<TouchableOpacity style={styles.button}>
+								<Text style={styles.buttonText}>Add To Cart</Text>
+							</TouchableOpacity>
+						</View>
+					)}
+					contentContainerStyle={styles.listContainer}
+				/>
+			</View>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 	},
 	pageTitle: {
 		fontSize: 22,

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { ScrollView, Image, View, StyleSheet, Animated } from 'react-native';
+import { ScrollView, View, StyleSheet, Animated, Image } from 'react-native';
 
-export default function ImageSlider({ images }) {
+export default function ImageSlider({ images }: { images: string[] }) {
 	const scrollX = useRef(new Animated.Value(0)).current;
 
 	return (
@@ -14,13 +14,17 @@ export default function ImageSlider({ images }) {
 					useNativeDriver: false,
 				})}
 				scrollEventThrottle={16}>
-				{images.map((image, index) => (
-					<Image key={index} source={{ uri: image }} style={styles.fashionImage} />
+				{images?.map((image, index) => (
+					<Image
+						key={index}
+						source={{ uri: 'https://i.ibb.co.com/VvhWD2Y/model.jpg' }}
+						style={styles.fashionImage}
+					/>
 				))}
 			</ScrollView>
 
 			<View style={styles.dotsContainer}>
-				{images.map((_, index) => {
+				{images?.map((_, index) => {
 					const inputRange = [(index - 1) * 300, index * 300, (index + 1) * 300];
 					const dotOpacity = scrollX.interpolate({
 						inputRange,

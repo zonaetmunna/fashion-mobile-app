@@ -37,6 +37,7 @@ export default function TabLayout() {
 				name='wishlist'
 				options={{
 					title: 'Wishlist',
+
 					tabBarIcon: ({ color, focused }) => (
 						<TabBarIcon name={focused ? 'heart' : 'heart-outline'} color={color} />
 					),
@@ -47,7 +48,7 @@ export default function TabLayout() {
 				options={{
 					title: 'Profile',
 					tabBarIcon: ({ color, focused }) => (
-						<TabBarIcon name={focused ? 'man' : 'man-outline'} color={color} />
+						<TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
 					),
 				}}
 			/>

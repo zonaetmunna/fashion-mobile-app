@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { Container } from '@/components/container';
 
 const mockOrder = {
 	id: '1',
@@ -51,61 +52,65 @@ export default function TrackOrder() {
 	const { id } = useLocalSearchParams(); // Get the dynamic `id` from the URL
 
 	return (
-		<ScrollView contentContainerStyle={styles.container}>
-			{/* Header with Back Button */}
-			<View style={styles.header}>
-				<TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-					<Ionicons name='chevron-back-outline' size={28} color='#333' />
-				</TouchableOpacity>
-				<Text style={styles.headerTitle}>Track Order</Text>
-			</View>
-
-			{/* Order Summary */}
-			<View style={styles.orderSummary}>
-				<Image source={{ uri: mockOrder.image }} style={styles.productImage} />
-				<View style={styles.orderDetails}>
-					<Text style={styles.productName}>{mockOrder.name}</Text>
-					<View style={styles.priceRow}>
-						<Text style={styles.price}>{mockOrder.price}</Text>
-						<Text style={styles.originalPrice}>{mockOrder.originalPrice}</Text>
-					</View>
-					<Text style={styles.status}>{mockOrder.status}</Text>
-					<Text style={styles.discount}>{mockOrder.discount}</Text>
-					<Text style={styles.quantity}>Qty: {mockOrder.quantity}</Text>
+		<Container>
+			<View style={styles.container}>
+				{/* Header with Back Button */}
+				<View style={styles.header}>
+					<TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+						<Ionicons name='chevron-back-outline' size={28} color='#333' />
+					</TouchableOpacity>
+					<Text style={styles.headerTitle}>Track Order</Text>
 				</View>
-			</View>
 
-			{/* Track Order Section */}
-			<View style={styles.trackOrderContainer}>
-				<Text style={styles.trackOrderTitle}>Track Order</Text>
-
-				{/* Timeline */}
-				{mockOrder.trackOrder.map((stage, index) => (
-					<View key={index} style={styles.timelineItem}>
-						<View style={styles.timelineIconContainer}>
-							{stage.isCompleted ? (
-								<Ionicons name='checkmark-circle' size={24} color='#E74C3C' />
-							) : (
-								<Ionicons name='ellipse-outline' size={24} color='#ccc' />
-							)}
-						</View>
-						<View style={styles.timelineContent}>
-							<Text style={[styles.statusText, stage.isCompleted && styles.completedText]}>
-								{stage.status} <Text style={styles.dateText}>{stage.date}</Text>
-							</Text>
-							<Text style={styles.descriptionText}>{stage.description}</Text>
+				<ScrollView contentContainerStyle={styles.scrollContainer}>
+					{/* Order Summary */}
+					<View style={styles.orderSummary}>
+						<Image source={{ uri: mockOrder.image }} style={styles.productImage} />
+						<View style={styles.orderDetails}>
+							<Text style={styles.productName}>{mockOrder.name}</Text>
+							<View style={styles.priceRow}>
+								<Text style={styles.price}>{mockOrder.price}</Text>
+								<Text style={styles.originalPrice}>{mockOrder.originalPrice}</Text>
+							</View>
+							<Text style={styles.status}>{mockOrder.status}</Text>
+							<Text style={styles.discount}>{mockOrder.discount}</Text>
+							<Text style={styles.quantity}>Qty: {mockOrder.quantity}</Text>
 						</View>
 					</View>
-				))}
+
+					{/* Track Order Section */}
+					<View style={styles.trackOrderContainer}>
+						<Text style={styles.trackOrderTitle}>Track Order</Text>
+
+						{/* Timeline */}
+						{mockOrder.trackOrder.map((stage, index) => (
+							<View key={index} style={styles.timelineItem}>
+								<View style={styles.timelineIconContainer}>
+									{stage.isCompleted ? (
+										<Ionicons name='checkmark-circle' size={24} color='#E74C3C' />
+									) : (
+										<Ionicons name='ellipse-outline' size={24} color='#ccc' />
+									)}
+								</View>
+								<View style={styles.timelineContent}>
+									<Text style={[styles.statusText, stage.isCompleted && styles.completedText]}>
+										{stage.status} <Text style={styles.dateText}>{stage.date}</Text>
+									</Text>
+									<Text style={styles.descriptionText}>{stage.description}</Text>
+								</View>
+							</View>
+						))}
+					</View>
+				</ScrollView>
 			</View>
-		</ScrollView>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flexGrow: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 		padding: 20,
 	},
 	header: {
@@ -121,6 +126,12 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: '#333',
 	},
+	scrollContainer: {
+		flexGrow: 1,
+		paddingTop: 20,
+		paddingBottom: 100,
+	},
+
 	orderSummary: {
 		flexDirection: 'row',
 		marginBottom: 20,

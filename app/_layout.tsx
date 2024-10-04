@@ -7,6 +7,7 @@ import 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -19,8 +20,8 @@ export default function RootLayout() {
 
 	const router = useRouter();
 
-	const [onboardingComplete, setOnboardingComplete] = useState(true);
-	const [isAuthenticated, setIsAuthenticated] = useState(true); // Check if user is signed in
+	const [onboardingComplete, setOnboardingComplete] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(false); // Check if user is signed in
 
 	useEffect(() => {
 		const checkAppStatus = async () => {
@@ -55,27 +56,30 @@ export default function RootLayout() {
 
 	return (
 		<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-			<Stack>
-				<Stack.Screen name='(onboarding)' options={{ headerShown: false }} />
-				<Stack.Screen name='login' options={{ headerShown: false }} />
-				<Stack.Screen name='signup' options={{ headerShown: false }} />
-				<Stack.Screen name='forgotPassword' options={{ headerShown: false }} />
-				<Stack.Screen name='forgot-verification-code' options={{ headerShown: false }} />
-				<Stack.Screen name='new-password' options={{ headerShown: false }} />
-				<Stack.Screen name='(drawer)' options={{ headerShown: false }} />
-				{/* for dynmic route */}
-				<Stack.Screen name='products-details/[id]' options={{ headerShown: false }} />
-				<Stack.Screen name='checkout' options={{ headerShown: false }} />
-				<Stack.Screen name='delivery-address' options={{ headerShown: false }} />
-				<Stack.Screen name='payment' options={{ headerShown: false }} />
-				<Stack.Screen name='add-card' options={{ headerShown: false }} />
-				<Stack.Screen name='add-delivery-address' options={{ headerShown: false }} />
-				<Stack.Screen name='my-orders' options={{ headerShown: false }} />
-				<Stack.Screen name='track-order/[id]' options={{ headerShown: false }} />
-				<Stack.Screen name='write-review/[id]' options={{ headerShown: false }} />
-				<Stack.Screen name='reviews' options={{ headerShown: false }} />
-				<Stack.Screen name='+not-found' />
-			</Stack>
+			<GestureHandlerRootView style={{ flex: 1 }}>
+				<Stack>
+					<Stack.Screen name='(onboarding)' options={{ headerShown: false }} />
+					<Stack.Screen name='login' options={{ headerShown: false }} />
+					<Stack.Screen name='signup' options={{ headerShown: false }} />
+					<Stack.Screen name='forgotPassword' options={{ headerShown: false }} />
+					<Stack.Screen name='forgot-verification-code' options={{ headerShown: false }} />
+					<Stack.Screen name='new-password' options={{ headerShown: false }} />
+					<Stack.Screen name='(drawer)' options={{ headerShown: false }} />
+					<Stack.Screen name='products-details/[id]' options={{ headerShown: false }} />
+					<Stack.Screen name='checkout' options={{ headerShown: false }} />
+					<Stack.Screen name='delivery-address' options={{ headerShown: false }} />
+					<Stack.Screen name='payment' options={{ headerShown: false }} />
+					<Stack.Screen name='edit-profile' options={{ headerShown: false }} />
+					<Stack.Screen name='add-card' options={{ headerShown: false }} />
+					<Stack.Screen name='add-delivery-address' options={{ headerShown: false }} />
+					<Stack.Screen name='my-orders' options={{ headerShown: false }} />
+					<Stack.Screen name='track-order/[id]' options={{ headerShown: false }} />
+					<Stack.Screen name='write-review/[id]' options={{ headerShown: false }} />
+					<Stack.Screen name='reviews' options={{ headerShown: false }} />
+					<Stack.Screen name='notification' options={{ headerShown: false }} />
+					<Stack.Screen name='+not-found' />
+				</Stack>
+			</GestureHandlerRootView>
 		</ThemeProvider>
 	);
 }

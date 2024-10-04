@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native'; // Assuming you are using React Navigation
+import { router } from 'expo-router';
+import { Container } from '@/components/container';
 
 export default function EditProfileScreen() {
 	// State for profile information
@@ -20,9 +22,14 @@ export default function EditProfileScreen() {
 	const navigation = useNavigation(); // Use navigation hook
 
 	return (
-		<SafeAreaView style={styles.safeArea}>
+		<Container>
 			<View style={styles.container}>
-				{/* Back Button Section */}
+				<View style={styles.header}>
+					<TouchableOpacity onPress={() => router.back()}>
+						<Ionicons name='chevron-back-outline' size={28} color='#333' />
+					</TouchableOpacity>
+					<Text style={styles.headerTitle}>Edit Profile</Text>
+				</View>
 
 				{/* Profile Section */}
 				<View style={styles.profileSection}>
@@ -66,29 +73,25 @@ export default function EditProfileScreen() {
 					</TouchableOpacity>
 				</View>
 			</View>
-		</SafeAreaView>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
-	safeArea: {
-		flex: 1,
-		backgroundColor: '#fff',
-	},
 	container: {
 		paddingHorizontal: 20,
-		paddingTop: 30,
+		paddingVertical: 20,
 	},
-	// Back Button Styles
-	backButton: {
+	header: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginBottom: 20,
 	},
-	backButtonText: {
-		fontSize: 16,
+	headerTitle: {
+		fontSize: 20,
+		fontWeight: 'bold',
 		color: '#333',
-		marginLeft: 5,
+		marginLeft: 10, // Add some space between the icon and title
 	},
 
 	profileSection: {

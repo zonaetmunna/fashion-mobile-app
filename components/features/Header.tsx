@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native'; // Import the hook to navigate
 import { DrawerActions } from '@react-navigation/native';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 
 const Header: React.FC = () => {
 	const navigation = useNavigation(); // Access navigation instance
@@ -24,10 +24,12 @@ const Header: React.FC = () => {
 			<Text style={styles.headerTitle}>Fashion Store</Text>
 
 			{/* Notification Icon */}
-			<TouchableOpacity style={styles.notificationIcon}>
-				<Link href='/notification' style={styles.notificationIcon}>
+			<TouchableOpacity
+				style={styles.notificationIcon}
+				onPress={() => router.push('/notification')}>
+				<View style={styles.notificationIcon}>
 					<Ionicons name='notifications-outline' size={28} color='#333' />
-				</Link>
+				</View>
 			</TouchableOpacity>
 
 			{/* Profile Icon */}
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		padding: 20,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 	},
 	drawerIcon: {
 		marginLeft: 10,

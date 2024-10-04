@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, Image, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
+import { Container } from '@/components/container';
 
 // Sample data for orders
 const ongoingOrders = [
@@ -54,7 +55,7 @@ export default function MyOrders() {
 	const [activeTab, setActiveTab] = useState('Ongoing');
 	const router = useRouter();
 
-	const renderOrderItem = ({ item }) => (
+	const renderOrderItem = ({ item }: { item: any }) => (
 		<View style={styles.orderItem}>
 			<Image source={{ uri: item.image }} style={styles.orderImage} />
 			<View style={styles.orderInfo}>
@@ -86,58 +87,58 @@ export default function MyOrders() {
 	const dataToDisplay = activeTab === 'Ongoing' ? ongoingOrders : completedOrders;
 
 	return (
-		<View style={styles.container}>
-			{/* Header */}
-			<View style={styles.header}>
-				<Ionicons
-					name='chevron-back-outline'
-					size={28}
-					color='#333'
-					onPress={() => router.back()}
+		<Container>
+			<View style={styles.container}>
+				{/* Header */}
+				<View style={styles.header}>
+					<Ionicons
+						name='chevron-back-outline'
+						size={28}
+						color='#333'
+						onPress={() => router.back()}
+					/>
+					<Text style={styles.headerTitle}>My Order</Text>
+				</View>
+
+				{/* Tabs */}
+				<View style={styles.tabs}>
+					<TouchableOpacity
+						style={[styles.tab, activeTab === 'Ongoing' && styles.activeTab]}
+						onPress={() => setActiveTab('Ongoing')}>
+						<Text style={[styles.tabText, activeTab === 'Ongoing' && styles.activeTabText]}>
+							Ongoing
+						</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={[styles.tab, activeTab === 'Completed' && styles.activeTab]}
+						onPress={() => setActiveTab('Completed')}>
+						<Text style={[styles.tabText, activeTab === 'Completed' && styles.activeTabText]}>
+							Completed
+						</Text>
+					</TouchableOpacity>
+				</View>
+
+				{/* Order List */}
+				<FlatList
+					data={dataToDisplay}
+					keyExtractor={(item) => item.id}
+					renderItem={renderOrderItem}
+					contentContainerStyle={styles.orderList}
 				/>
-				<Text style={styles.headerTitle}>My Order</Text>
 			</View>
-
-			{/* Tabs */}
-			<View style={styles.tabs}>
-				<TouchableOpacity
-					style={[styles.tab, activeTab === 'Ongoing' && styles.activeTab]}
-					onPress={() => setActiveTab('Ongoing')}>
-					<Text style={[styles.tabText, activeTab === 'Ongoing' && styles.activeTabText]}>
-						Ongoing
-					</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					style={[styles.tab, activeTab === 'Completed' && styles.activeTab]}
-					onPress={() => setActiveTab('Completed')}>
-					<Text style={[styles.tabText, activeTab === 'Completed' && styles.activeTabText]}>
-						Completed
-					</Text>
-				</TouchableOpacity>
-			</View>
-
-			{/* Order List */}
-			<FlatList
-				data={dataToDisplay}
-				keyExtractor={(item) => item.id}
-				renderItem={renderOrderItem}
-				contentContainerStyle={styles.orderList}
-			/>
-		</View>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 	},
 	header: {
 		flexDirection: 'row',
 		alignItems: 'center',
 		padding: 20,
-		borderBottomWidth: 1,
-		borderBottomColor: '#ddd',
 	},
 	headerTitle: {
 		fontSize: 20,

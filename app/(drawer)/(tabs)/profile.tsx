@@ -5,10 +5,11 @@ import { Link } from 'expo-router';
 import ProfileHeader from '@/components/features/profile/ProfileHeader';
 import ProfileMenu from '@/components/features/profile/ProfileMenu';
 import ProfileOption from '@/components/features/profile/ProfileOption';
+import { Container } from '@/components/container';
 
 export default function ProfileScreen() {
 	return (
-		<SafeAreaView style={styles.safeArea}>
+		<Container>
 			{/* Profile Header with Notification Icon */}
 			<View style={styles.headerContainer}>
 				<ProfileHeader />
@@ -46,22 +47,18 @@ export default function ProfileScreen() {
 					/>
 				</View>
 			</ScrollView>
-		</SafeAreaView>
+		</Container>
 	);
 }
 
 const styles = StyleSheet.create({
-	safeArea: {
-		flex: 1,
-		backgroundColor: '#fff',
-	},
 	headerContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		paddingHorizontal: 20,
 		paddingVertical: 10,
-		backgroundColor: '#fff',
+		backgroundColor: '#f1f1f1',
 		borderBottomWidth: 1,
 		borderBottomColor: '#eee',
 	},

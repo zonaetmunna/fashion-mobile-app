@@ -7,47 +7,21 @@ import {
 	TouchableOpacity,
 	ScrollView,
 	FlatList,
-	SafeAreaView,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
-
-const cartData = [
-	{
-		id: 1,
-		name: 'Bluebell Hand Block Tiered',
-		price: 80,
-		originalPrice: 95,
-		quantity: 14,
-		imageUrl: 'https://example.com/product1.jpg',
-	},
-	{
-		id: 2,
-		name: 'Bluebell Hand Block Tiered',
-		price: 80,
-		originalPrice: 95,
-		quantity: 14,
-		imageUrl: 'https://example.com/product2.jpg',
-	},
-	{
-		id: 3,
-		name: 'Bluebell Hand Block Tiered',
-		price: 80,
-		originalPrice: 95,
-		quantity: 14,
-		imageUrl: 'https://example.com/product3.jpg',
-	},
-];
+import { Container } from '@/components/container';
+import { cartData } from '@/data/cart';
 
 export default function CartScreen() {
 	return (
-		<SafeAreaView style={styles.safeArea}>
+		<Container>
 			<View style={styles.container}>
 				<ScrollView style={styles.scrollView}>
 					<View style={styles.header}>
 						<Text style={styles.headerText}>My Cart</Text>
 						<Text style={styles.itemCount}>8 Items • Deliver to: London</Text>
-						<Ionicons name='ios-location-outline' size={20} style={styles.locationIcon} />
+						<Ionicons name='location-outline' size={20} style={styles.locationIcon} />
 						<Text style={styles.changeText}>Change</Text>
 					</View>
 					<Text style={styles.subtotal}>Subtotal $3,599</Text>
@@ -86,7 +60,7 @@ export default function CartScreen() {
 					<Text style={styles.proceedButtonText}>Proceed to Buy (8 items)</Text>
 				</TouchableOpacity>
 			</View>
-		</SafeAreaView>
+		</Container>
 	);
 }
 
